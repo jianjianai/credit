@@ -1,0 +1,12 @@
+name: credit
+main: cn.jji8.credit.main
+version: 1.1
+author: jianjianai
+api-version: 1.13
+softdepend: [HolographicDisplays]
+commands:
+  credit:
+    aliases: [ct,信用]
+    description: "credit的主命令"
+    permission-message: "你没有权限执行此命令"
+    usage: /<command> 命令
