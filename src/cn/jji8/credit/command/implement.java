@@ -84,12 +84,12 @@ public class implement implements CommandExecutor {
                     commandSender.sendMessage(参数[1]+"不在线");
                     return true;
                 }
-                List<String> 记录 = main.getMain().getDisplay().get记录(玩家);
-                commandSender.sendMessage("---------------"+玩家.getName()+"---------------");
+                List<String> 记录 = main.getMain().getDisplay().get记录(查询玩家);
+                commandSender.sendMessage("---------------"+查询玩家.getName()+"---------------");
                 for(String a:记录){
                     commandSender.sendMessage(a);
                 }
-                commandSender.sendMessage("---------------"+玩家.getName()+"---------------");
+                commandSender.sendMessage("---------------"+查询玩家.getName()+"---------------");
                 break;
             }
             case "评价":

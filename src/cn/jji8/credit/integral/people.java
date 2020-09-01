@@ -102,6 +102,9 @@ public class people {
      * 将全息显示的内容改成文本
      * */
     void 显示(List<String> 文本){
+        if(Hologram==null){
+            return;
+        }
         List<String> List = 替换(文本);
         Hologram.clearLines();
         for(String A:List){
