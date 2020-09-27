@@ -4,11 +4,14 @@ package cn.jji8.credit.command;
 import cn.jji8.credit.integral.display;
 import cn.jji8.credit.main;
 import com.gmail.filoghost.holographicdisplays.api.HologramsAPI;
+import com.mysql.jdbc.Field;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
+import java.io.File;
 import java.text.MessageFormat;
 import java.util.List;
 
@@ -142,6 +145,11 @@ public class implement implements CommandExecutor {
                 main.getMain().reloadConfig();
                 main.getMain().display = new display();
                 HologramsAPI.unregisterPlaceholders(main.getMain());
+                File fileLang = new File(main.getMain().getDataFolder(), "lang.yml");
+                if (!fileLang.exists()){
+                    main.getMain().saveResource("lang.yml",false);
+                }
+                main.yamlLang = YamlConfiguration.loadConfiguration(fileLang);
                 commandSender.sendMessage("插件重新加载完成");
                 break;
             }
