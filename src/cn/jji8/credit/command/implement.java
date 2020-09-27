@@ -4,11 +4,15 @@ package cn.jji8.credit.command;
 import cn.jji8.credit.integral.display;
 import cn.jji8.credit.main;
 import com.gmail.filoghost.holographicdisplays.api.HologramsAPI;
+import com.mysql.jdbc.Field;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
+import java.io.File;
+import java.text.MessageFormat;
 import java.util.List;
 
 
@@ -85,11 +89,15 @@ public class implement implements CommandExecutor {
                     return true;
                 }
                 List<String> 记录 = main.getMain().getDisplay().get记录(查询玩家);
-                commandSender.sendMessage("---------------"+查询玩家.getName()+"---------------");
+                commandSender.sendMessage(main.yamlLang.getString("Query.Prefix")+
+                        main.yamlLang.getString("Query.Title")+
+                        main.yamlLang.getString("Query.Suffix"));
                 for(String a:记录){
-                    commandSender.sendMessage(a);
+                    commandSender.sendMessage(main.yamlLang.getString("Query.ContentColor").replace("&","§")+a);
                 }
-                commandSender.sendMessage("---------------"+查询玩家.getName()+"---------------");
+                commandSender.sendMessage(main.yamlLang.getString("Query.Prefix")+
+                        main.yamlLang.getString("Query.Title")+
+                        main.yamlLang.getString("Query.Suffix"));
                 break;
             }
             case "评价":
@@ -104,24 +112,26 @@ public class implement implements CommandExecutor {
                 }
                 Player 评分玩家 = org.bukkit.Bukkit.getPlayer(参数[1]);
                 if(评分玩家==null){
-                    commandSender.sendMessage(参数[1]+"不在线");
+                    String format = MessageFormat.format(main.yamlLang.getString("Evaluate.NoOnline"), 参数[1]);
+                    commandSender.sendMessage(format);
                     return true;
                 }
                 int 分数;
                 try {
                     分数 = Integer.parseInt(参数[2]);
                 }catch (NumberFormatException a){
-                    commandSender.sendMessage(参数[2]+"不是一个有效数字");
+                    String format = MessageFormat.format(main.yamlLang.getString("Evaluate.ErrorMath"), 参数[2]);
+                    commandSender.sendMessage(format);
                     return true;
                 }
                 if(分数<0|分数>10){
-                    commandSender.sendMessage("你只可以使用0~10范围内的数字");
+                    commandSender.sendMessage(main.yamlLang.getString("Evaluate.MathNo1_10"));
                     return true;
                 }
                 if(main.getMain().getDisplay().evaluate(玩家,评分玩家,分数)){
-                    commandSender.sendMessage("评价成功");
+                    commandSender.sendMessage(main.yamlLang.getString("Evaluate.EvaOk"));
                 }else {
-                    commandSender.sendMessage("错误？");
+                    commandSender.sendMessage(main.yamlLang.getString("Evaluate.EvaError"));
                 }
                 break;
             }
@@ -135,6 +145,11 @@ public class implement implements CommandExecutor {
                 main.getMain().reloadConfig();
                 main.getMain().display = new display();
                 HologramsAPI.unregisterPlaceholders(main.getMain());
+                File fileLang = new File(main.getMain().getDataFolder(), "lang.yml");
+                if (!fileLang.exists()){
+                    main.getMain().saveResource("lang.yml",false);
+                }
+                main.yamlLang = YamlConfiguration.loadConfiguration(fileLang);
                 commandSender.sendMessage("插件重新加载完成");
                 break;
             }

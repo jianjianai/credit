@@ -242,11 +242,11 @@ public class people {
             a.put("玩家",执行者.getName());
             a.put("评分",分数);
             玩家评分.add(a);
-            玩家.sendMessage("评分成功");
+            玩家.sendMessage(main.yamlLang.getString("Player.评分成功"));
             玩家评分.add(a);
         }else {
             a.put("评分",分数);
-            玩家.sendMessage("修改评分成功");
+            玩家.sendMessage(main.yamlLang.getString("Player.修改评分"));
         }
         wenjian.set("玩家评分",玩家评分);
         显示(文本);
