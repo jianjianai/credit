@@ -1,0 +1,11 @@
+Query:
+  Prefix: "§7---------------"
+  Suffix: "§7---------------"
+  Title: "§a相思梦泽"
+  ContentColor: "§a"
+Evaluate:
+  NoOnline: "{0}不在线"
+  ErrorMath: "{0}不是一个有效数字"
+  MathNo1_10: "你只可以使用0~10范围内的数字"
+  EvaOk: "评价成功"
+  EvaError: "错误？"

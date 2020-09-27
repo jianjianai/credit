@@ -5,12 +5,25 @@ import cn.jji8.credit.command.implement;
 import cn.jji8.credit.integral.display;
 import com.gmail.filoghost.holographicdisplays.api.HologramsAPI;
 import org.bukkit.Bukkit;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import java.io.File;
 
 public class main extends JavaPlugin {
     static main main;
     public display display = new display();
     Metrics Metrics;
+    public static YamlConfiguration yamlLang;
+
+    @Override
+    public void onLoad() {
+        File fileLang = new File(getDataFolder(),"lang.yml");
+        if (!fileLang.exists()){
+            saveResource("lang.yml",false);
+        }
+        yamlLang = YamlConfiguration.loadConfiguration(fileLang);
+    }
 
     /**
      * 插件启动时调用的方法
